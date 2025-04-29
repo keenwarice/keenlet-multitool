@@ -234,9 +234,32 @@ createWindow123456789({ content: `
       onclick="elementZapper();">
         Element Zapper
       </button>
+      <label style="display:flex;align-items:center;gap:10px;font-family:VT323;font-size:18px;color:white;">
+        <input type="checkbox" id="editToggle123456789" style="width:20px;height:20px;">
+        Edit Page
+      </label>
     </div>
   </div>
 `, title: "tool menu", center: true, width: 500, height: 400 });
+
+// i found a bookmarklet for this edit page thing on github somewhere, i just put it into here
+setTimeout(() => {
+  const editToggle123456789 = document.getElementById('editToggle123456789');
+  if (editToggle123456789) {
+    editToggle123456789.addEventListener('change', e => {
+      if (e.target.checked) {
+        document.body.contentEditable = 'true';
+        document.designMode = 'on';
+        void 0;
+      } else {
+        document.body.contentEditable = 'false';
+        document.designMode = 'off';
+        void 0;
+      }
+    });
+  }
+}, 500);
+
 //zapper things:
 function prepareZapper123456789() {
   let zapTarget123456789 = null;
