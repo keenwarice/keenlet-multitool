@@ -80,6 +80,25 @@ style123456789.textContent = `
     width: 100%;
     accent-color: red;
   }
+  .window-content123456789 input[type="text"] {
+    background-color: #111;
+    border: 1px solid #444;
+    color: #eee;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-family: VT323, monospace;
+    font-size: 18px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: border 0.3s, background 0.3s;
+  }
+  .window-content123456789 input[type="text"]:focus {
+    outline: none;
+    border-color: #888;
+    background-color: #222;
+  }
+
+
 `;
 document.head.appendChild(style123456789);
 
@@ -239,6 +258,35 @@ createWindow123456789({ content: `
         Edit Page
       </label>
     </div>
+    <div style="border:2px solid #555;border-radius:12px;padding:20px;width:80%;max-width:400px;background:#222;display:flex;flex-direction:column;align-items:center;gap:15px;">
+      <h3 style="color:white;font-family:VT323;font-size:20px;margin-bottom:10px;">Styling</h3>
+      <label style="display:flex;align-items:center;gap:10px;font-family:VT323;font-size:18px;color:white;">
+        <input type="checkbox" id="nightToggle123456789" style="width:20px;height:20px;">
+        Night Mode
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;font-family:VT323;font-size:18px;color:white;">
+        <input type="checkbox" id="grayToggle123456789" style="width:20px;height:20px;">
+        Grayscale
+      </label>
+    </div>
+    <button style="
+      width:90%;
+      padding:10px;
+      background:#333;
+      color:white;
+      border:2px solid #555;
+      border-radius:10px;
+      font-size:18px;
+      font-family:VT323;
+      cursor:pointer;
+      transition:background 0.3s,transform 0.2s;
+    " 
+    onmouseover="this.style.background='#555';this.style.transform='scale(1.02)'"
+    onmouseout="this.style.background='#333';this.style.transform='scale(1)'"
+    onclick="openSettings123456789();">
+      Settings
+    </button>
+
   </div>
 `, title: "tool menu", center: true, width: 500, height: 400 });
 
@@ -260,7 +308,6 @@ setTimeout(() => {
   }
 }, 500);
 
-//zapper things:
 function prepareZapper123456789() {
   let zapTarget123456789 = null;
   let zapPath123456789 = [];
@@ -341,3 +388,96 @@ function prepareZapper123456789() {
     }
   };
 }
+let showHotkey123456789 = { ctrl: true, key: '`' };
+let hideHotkey123456789 = { ctrl: true, key: '~' };
+let msgElement123456789;
+
+function openSettings123456789() {
+  createWindow123456789({
+    title: "Settings",
+    content: `
+      <div style="display:flex;flex-direction:column;gap:20px;font-family:VT323;color:white;">
+        <div>
+          <label>Show Windows Hotkey:</label>
+          <input id="showKeyInput123456789" type="text" value="${showHotkey123456789.key}" style="width:50px;margin-left:10px;" placeholder="ctrl">
+        </div>
+        <div>
+          <label>Hide Windows Hotkey:</label>
+          <input id="hideKeyInput123456789" type="text" value="${hideHotkey123456789.key}" style="width:50px;margin-left:10px;" placeholder="ctrl">
+        </div>
+        <button id="saveHotkeys123456789" style="padding:6px 12px;background:#333;color:white;border:2px solid #555;border-radius:10px;font-size:18px;font-family:VT323;cursor:pointer;transition:background 0.3s,transform 0.2s;"
+   onmouseover="this.style.background='#555';this.style.transform='scale(1.02)'"
+   onmouseout="this.style.background='#333';this.style.transform='scale(1)'"
+>Save Hotkeys</button>
+      </div>
+    `,
+    center: true,
+    width: 300,
+    height: 250
+  })
+  setTimeout(() => {
+    const showInput = document.getElementById('showKeyInput123456789');
+    const hideInput = document.getElementById('hideKeyInput123456789');
+    const saveBtn = document.getElementById('saveHotkeys123456789');
+    saveBtn.onclick = () => {
+      showHotkey123456789.key = showInput.value.trim() || '`';
+      hideHotkey123456789.key = hideInput.value.trim() || '~';
+      updateHintText123456789();
+    }
+  }, 300);
+}
+
+function updateHintText123456789() {
+  if (msgElement123456789) {
+    msgElement123456789.textContent = `press ctrl + ${showHotkey123456789.key} to show windows`;
+  }
+}
+
+document.addEventListener('keyup', e => {
+  if (e.ctrlKey && e.key === showHotkey123456789.key) {
+    for (const w of windows123456789) {
+      w.style.display = '';
+    }
+  }
+  if (e.ctrlKey && e.key === hideHotkey123456789.key) {
+    for (const w of windows123456789) {
+      w.style.display = 'none';
+    }
+    if (!window._shownHint123456789) {
+      msgElement123456789 = document.createElement('div');
+      msgElement123456789.className = 'barmsg123456789';
+      msgElement123456789.textContent = `press ctrl + ${showHotkey123456789.key} to show windows`;
+      document.body.appendChild(msgElement123456789);
+      setTimeout(() => {
+        msgElement123456789.style.opacity = '0';
+        setTimeout(() => msgElement123456789.remove(), 500)
+      }, 2000);
+      window._shownHint123456789 = true;
+    }
+  }
+})
+
+setTimeout(() => {
+  const nightToggle123456789 = document.getElementById('nightToggle123456789');
+  const grayToggle123456789 = document.getElementById('grayToggle123456789');
+
+  nightToggle123456789?.addEventListener('change', e => {
+    if (e.target.checked) {
+      // this is sort of like the thing on apple phones, where you set the tint
+      document.body.style.filter = 'brightness(0.95) sepia(0.2) hue-rotate(10deg) saturate(1.2)';
+    } else {
+
+      document.body.style.filter = '';
+    }
+  });
+
+  grayToggle123456789?.addEventListener('change', e => {
+    // this one was not actually helpful
+    // i just used it as a filler so it wouldnt look empty
+    if (e.target.checked) {
+      document.body.style.filter += ' grayscale(1)';
+    } else {
+      document.body.style.filter = document.body.style.filter.replace(/grayscale\(1\)/, '');
+    }
+  });
+}, 500);
