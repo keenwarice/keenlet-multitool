@@ -98,6 +98,31 @@ style123456789.textContent = `
     background-color: #222;
   }
 
+  .spin-anim123456789 {
+    animation: spin123456789 2s linear infinite;
+  }
+
+  @keyframes spin123456789 {
+    0% { transform: rotate(0deg) }
+    100% { transform: rotate(360deg) }
+  }
+
+  .rgb-text123456789 {
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red, orange, yellow);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rgb123456789 3s linear infinite;
+    background-size: 400% 100%;
+  }
+  .rgb-bg123456789 {
+    background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet, red, orange, yellow);
+    animation: rgb123456789 3s linear infinite;
+    background-size: 400% 100%;
+  }
+  @keyframes rgb123456789 {
+    0% { background-position: 0% 50% }
+    100% { background-position: 100% 50% }
+  }
 
 `;
 document.head.appendChild(style123456789);
@@ -227,7 +252,7 @@ window.elementZapper = function() {
     width: 300,
     height: 200
   });
-  setTimeout(prepareZapper123456789, 5000);
+  setTimeout(prepareZapper123456789, 1);
 };
 
 //make the windows
@@ -269,6 +294,23 @@ createWindow123456789({ content: `
         Grayscale
       </label>
     </div>
+
+    <div style="border:2px solid #555;border-radius:12px;padding:20px;width:80%;max-width:400px;background:#222;display:flex;flex-direction:column;align-items:center;gap:15px;">
+      <h3 style="color:white;font-family:VT323;font-size:20px;margin-bottom:10px;">funny</h3>
+      <label style="display:flex;align-items:center;gap:10px;font-family:VT323;font-size:18px;color:white;">
+      <input type="checkbox" id="spin-toggle123456789" style="width:20px;height:20px;">
+        spin elements
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;font-family:VT323;font-size:18px;color:white;">
+        <input type="checkbox" id="spin-page123456789" style="width:20px;height:20px;">
+        spin page
+      </label>
+      <label style="display:flex;align-items:center;gap:10px;font-family:VT323;font-size:18px;color:white;">
+      <input type="checkbox" id="rainbow-toggle123456789" style="width:20px;height:20px;">
+        RGB
+      </label>
+    </div>
+
     <button style="
       width:90%;
       padding:10px;
@@ -414,7 +456,7 @@ function openSettings123456789() {
     center: true,
     width: 300,
     height: 250
-  })
+  });
   setTimeout(() => {
     const showInput = document.getElementById('showKeyInput123456789');
     const hideInput = document.getElementById('hideKeyInput123456789');
@@ -450,12 +492,12 @@ document.addEventListener('keyup', e => {
       document.body.appendChild(msgElement123456789);
       setTimeout(() => {
         msgElement123456789.style.opacity = '0';
-        setTimeout(() => msgElement123456789.remove(), 500)
+        setTimeout(() => msgElement123456789.remove(), 500);
       }, 2000);
       window._shownHint123456789 = true;
     }
   }
-})
+});
 
 setTimeout(() => {
   const nightToggle123456789 = document.getElementById('nightToggle123456789');
@@ -481,3 +523,33 @@ setTimeout(() => {
     }
   });
 }, 500);
+
+// the fun stuff:
+// OMG OMG MAKING THE WINDOWS NOT SPIN TOOK SO LONG WHY??
+document.getElementById('spin-toggle123456789').onclick = () => {
+  document.querySelectorAll('*').forEach(el => {
+    if (
+      el !== document.body &&
+      el !== document.documentElement && // this is what wasted my time, the <html> thing
+      !el.closest('.window123456789') &&
+      el !== document.querySelector('.window123456789').parentElement
+    ) {
+      el.classList.toggle('spin-anim123456789');
+    }
+  });
+};
+
+document.getElementById('spin-page123456789').onclick = () => {
+  document.body.classList.toggle('spin-anim123456789');
+};
+
+document.getElementById('rainbow-toggle123456789').onclick = () => {
+  document.querySelectorAll('*').forEach(el => {
+    if (el !== document.body && el !== document.documentElement && !el.closest('.window123456789') && el !== document.querySelector('.window123456789').parentElement) {
+      el.classList.toggle('rgb-text123456789');
+    }
+    if (el == document.body){
+      el.classList.toggle('rgb-bg123456789');
+    }
+  });
+};
