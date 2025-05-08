@@ -311,6 +311,88 @@ createWindow123456789({ content: `
       </label>
     </div>
 
+    <div style="border:2px solid #555;border-radius:12px;padding:20px;width:80%;max-width:400px;background:#222;display:flex;flex-direction:column;align-items:center;gap:15px;">
+      <h3 style="color:white;font-family:VT323;font-size:20px;margin-bottom:10px;">misc</h3>
+      <button style="
+        width:90%;
+        padding:10px;
+        background:#333;
+        color:white;
+        border:2px solid #555;
+        border-radius:10px;
+        font-size:18px;
+        font-family:VT323;
+        cursor:pointer;
+        transition:background 0.3s,transform 0.2s;
+      " 
+      onmouseover="this.style.background='#555';this.style.transform='scale(1.02)'"
+      onmouseout="this.style.background='#333';this.style.transform='scale(1)'"
+      onclick="injectJS123456789();">
+        inject!
+      </button>
+
+      <textarea style="
+      width:90%;
+      padding:10px;
+      background:#333;
+      color:white;
+      border:2px solid #555;
+      border-radius:10px;
+      font-size:16px;
+      font-family:VT323;
+      resize:none;
+      transition:background 0.3s;
+    " placeholder="code here... (JS)" rows="5" id="injectJSText123456789"></textarea>
+    <p style="color:red; text-align:center;" id="error123456789"></p>
+    <h3 style="color:white;font-family:VT323;font-size:18px;margin-top:30px;">Embed Page</h3>
+  
+    <input id="embedURL123456789" style="
+      width:90%;
+      padding:10px;
+      background:#333;
+      color:white;
+      border:2px solid #555;
+      border-radius:10px;
+      font-size:16px;
+      font-family:VT323;
+    " placeholder="https\:\/\/\.\.\.">
+
+    <button style="
+      width:90%;
+      padding:10px;
+      background:#333;
+      color:white;
+      border:2px solid #555;
+      border-radius:10px;
+      font-size:18px;
+      font-family:VT323;
+      cursor:pointer;
+      transition:background 0.3s,transform 0.2s;
+    " 
+    onmouseover="this.style.background='#555';this.style.transform='scale(1.02)'"
+    onmouseout="this.style.background='#333';this.style.transform='scale(1)'"
+    onclick="let url123456789 = document.getElementById('embedURL123456789').value;createWindow123456789({ url: url123456789, title: 'page', x: 100, y: 100, width: 600, height: 400 });">embed</button>
+    </div>
+
+    <div id="aiContainer123456789" style="border:2px solid #555;border-radius:12px;padding:20px;width:80%;max-width:400px;background:#222;display:flex;flex-direction:column;align-items:center;gap:15px;transition:opacity 0.4s ease;">
+      <h3 style="color:white;font-family:VT323;font-size:20px;margin-bottom:10px;">AI</h3>
+
+      <div id="hackClubPrompt123456789" style="display:flex;flex-direction:column;align-items:center;gap:15px;transition:opacity 0.4s ease;">
+        <h3 id="hackClubberText123456789" style="font-family:VT323;font-size:18px;color:white;">Are you a hack clubber?</h3>
+        <div style="display: flex; gap: 10px;">
+          <button id="yesBtn123456789" style="padding:10px;color:white;border:2px solid #555;border-radius:10px;font-size:18px;font-family:VT323;cursor:pointer;background:#28c840;" onmouseover="this.style.background='#45D760';this.style.transform='scale(1.05)'" onmouseout="this.style.background='#28c840';this.style.transform='scale(1)'">Yes</button>
+          <button id="noBtn123456789" style="padding:10px;color:white;border:2px solid #555;border-radius:10px;font-size:18px;font-family:VT323;cursor:pointer;background:#f24c4c;" onmouseover="this.style.background='#F57A7A';this.style.transform='scale(1.05)'" onmouseout="this.style.background='#f24c4c';this.style.transform='scale(1)'">I don't know?</button>
+        </div>
+      </div>
+
+      <div id="askAISection123456789" style="display:none;flex-direction:column;align-items:center;gap:10px;width:100%;">
+        <input id="askAIInput123456789" placeholder="Ask AI..." style="width:100%;padding:10px;border-radius:8px;border:2px solid #555;background:#111;color:white;font-family:VT323;font-size:16px;">
+        <button id="sendAIButton123456789" style="padding:10px;color:white;border:2px solid #555;border-radius:10px;font-size:18px;font-family:VT323;cursor:pointer;background:#333;" onmouseover="this.style.background='#555';this.style.transform='scale(1.05)'" onmouseout="this.style.background='#333';this.style.transform='scale(1)'">Send</button>
+        <div id="aiResponse123456789" style="margin-top:10px;padding:10px;border-radius:10px;background:#111;color:#0f0;font-family:VT323;white-space:pre-wrap;width:100%;display:none;"></div>
+      </div>
+    </div>
+
+
     <button style="
       width:90%;
       padding:10px;
@@ -431,7 +513,7 @@ function prepareZapper123456789() {
   };
 }
 let showHotkey123456789 = { ctrl: true, key: '`' };
-let hideHotkey123456789 = { ctrl: true, key: '~' };
+let hideHotkey123456789 = { ctrl: true, key: 'h' };
 let msgElement123456789;
 
 function openSettings123456789() {
@@ -463,7 +545,7 @@ function openSettings123456789() {
     const saveBtn = document.getElementById('saveHotkeys123456789');
     saveBtn.onclick = () => {
       showHotkey123456789.key = showInput.value.trim() || '`';
-      hideHotkey123456789.key = hideInput.value.trim() || '~';
+      hideHotkey123456789.key = hideInput.value.trim() || 'h';
       updateHintText123456789();
     }
   }, 300);
@@ -551,5 +633,83 @@ document.getElementById('rainbow-toggle123456789').onclick = () => {
     if (el == document.body){
       el.classList.toggle('rgb-bg123456789');
     }
+  });
+};
+
+function injectJS123456789() {
+  const code123456789 = document.getElementById('injectJSText123456789').value;
+  const error123456789 = document.getElementById('error123456789');
+  error123456789.textContent = "";
+  try {
+    error123456789.textContent = "success!";
+    error123456789.style.color = "lightgreen"; // regular green is oddly dark, i dont like it
+    eval(code123456789);
+  } catch (error) {
+    console.error("error:", error);
+    error123456789.textContent = error;
+    error123456789.style.color = "red";
+    alert("your code is wrong. check the console.");
+  }
+}
+
+
+const yesBtn = document.getElementById('yesBtn123456789');
+const noBtn = document.getElementById('noBtn123456789');
+const promptSection = document.getElementById('hackClubPrompt123456789');
+const askAISection = document.getElementById('askAISection123456789');
+const askInput = document.getElementById('askAIInput123456789');
+const sendBtn = document.getElementById('sendAIButton123456789');
+const responseBox = document.getElementById('aiResponse123456789');
+const aiContainer = document.getElementById('aiContainer123456789');
+
+yesBtn.onclick = () => {
+  promptSection.style.opacity = '0';
+  setTimeout(() => {
+    promptSection.style.display = 'none';
+    askAISection.style.display = 'flex';
+  }, 400);
+};
+
+noBtn.onclick = () => {
+  aiContainer.style.opacity = '0';
+  setTimeout(() => {
+    aiContainer.remove();
+    window.open('https://hackclub.com/slack/?reason=I%20heard%20about%20Hack%20Club%20from%20keenwarice%20(rice)', '_blank'); // shameless refferal link LOL
+  }, 400);
+};
+
+sendBtn.onclick = () => {
+  const userMessage = askInput.value.trim();
+  if (!userMessage) return;
+  responseBox.style.display = 'none';
+  responseBox.style.color = '#0f0';
+  responseBox.textContent = 'i\'m thinking...';
+  responseBox.style.display = 'block';
+
+  fetch('https://ai.hackclub.com/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages: [
+        {
+          role: 'system',
+          content: `You are KeenLM Lite. You are running on a JavaScript multitool on somebody's browser. You provide witty responses, but you provide accurate, nonwitty information when doing something serious. Such as the essay when making an essay. You were created by keenwarice (rice), a software developer, but sponsored by an organization called Hack Club. Dont mention them unnecessarily.`
+        },
+        {
+          role: 'user',
+          content: userMessage
+        }
+      ]
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    const reply = data.choices?.[0]?.message?.content?.trim() || 'no response.';
+    responseBox.textContent = reply
+  })
+  .catch(err => {
+    console.error('error:', err);
+    responseBox.style.color = '#f44';
+    responseBox.textContent = 'sorry. there was an error. try again later.';
   });
 };
